@@ -1,0 +1,155 @@
+{
+	"pages": [
+		// 首页
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/index/search"
+		},
+		// 生活娱乐
+		{
+			"path": "pages/tools/qrcode/index",
+			"style": {
+				"navigationBarTitleText": "二维码生成"
+			}
+		},
+		{
+			"path": "pages/tools/qrcode/result",
+			"style": {
+				"navigationBarTitleText": "二维码生成"
+			}
+		},
+		{
+			"path": "pages/tools/date/index",
+			"style": {
+				"navigationBarTitleText": "黄道吉日"
+			}
+		},
+		{
+		    "path" : "pages/tools/date/result",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		/*
+		{
+			"path": "pages/tools/name/index",
+			"style": {
+				"navigationBarTitleText": "古诗词取名"
+			}
+		},
+		{
+			"path": "pages/tools/eat/index",
+			"style": {
+				"navigationBarTitleText": "今天吃什么"
+			}
+		},
+		*/
+		{
+			"path": "pages/tools/calorie/index",
+			"style": {
+				"navigationBarTitleText": "卡路里查询"
+			}
+		},
+		{
+			"path": "pages/tools/blood_type/index",
+			"style": {
+				"navigationBarTitleText": "血型遗传规律"
+			}
+		},
+		/*
+		{
+			"path": "pages/tools/trash/index",
+			"style": {
+				"navigationBarTitleText": "垃圾分类查询"
+			}
+		},
+		*/
+		// 教育教学
+		{
+			"path": "pages/tools/poetry/index",
+			"style": {
+				"navigationBarTitleText": "古诗词"
+			}
+		},
+		{
+			"path": "pages/tools/poetry/result",
+			"style": {
+				"navigationBarTitleText": "古诗词"
+			}
+		},
+		// 数据换算
+		/*
+		{
+			"path": "pages/tools/mortgage/index",
+			"style": {
+				"navigationBarTitleText": "房贷计算"
+			}
+		},
+		{
+			"path": "pages/tools/invest/index",
+			"style": {
+				"navigationBarTitleText": "投资收益计算"
+			}
+		},
+		{
+			"path": "pages/tools/bmi/index",
+			"style": {
+				"navigationBarTitleText": "BMI计算"
+			}
+		},
+		{
+			"path": "pages/tools/date/index",
+			"style": {
+				"navigationBarTitleText": "日期计算"
+			}
+		},
+		*/
+		{
+			"path": "pages/tools/temperature/index",
+			"style": {
+				"navigationBarTitleText": "温度换算"
+			}
+		},
+		{
+			"path": "pages/tools/binary/index",
+			"style": {
+				"navigationBarTitleText": "进制转换"
+			}
+		},
+		// 关于
+		{
+			"path": "pages/about/about",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}
+    ],
+	"tabBar": {
+		"color": "#333333",
+		"selectedColor": "#333333",
+		"borderStyle": "black",
+		"backgroundColor": "#FFFFFF",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tabbar/home.png",
+				"selectedIconPath": "static/tabbar/home_selected.png"
+			},
+			{
+				"pagePath": "pages/about/about",
+				"text": "关于",
+				"iconPath": "static/tabbar/about.png",
+				"selectedIconPath": "static/tabbar/about_selected.png"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "聚米工具箱",
+		"navigationBarBackgroundColor": "#FFFFFF"
+	},
+	"uniIdRouter": {}
+}
