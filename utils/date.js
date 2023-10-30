@@ -39,6 +39,8 @@ export default {
 				that.dates = data
 				that.items = items
 				uni.setStorageSync(`${year}`, data)
+                
+                console.log(data)
 			})
 		} else {
 			dates.forEach(day => {
@@ -60,7 +62,7 @@ export default {
 			that.dates = dates
 			that.items = items
 		}
-		
+
 		function fetchData(res) {
 			let resultData = res.data.Result[0].DisplayData.resultData.tplData.data.almanac
 			resultData.forEach(day => {
@@ -85,7 +87,7 @@ export default {
 				data.push({
 					"date": `${day.year}-${showMonth}-${showDay}`,
 					"suit": day.suit,  // 适宜
-					"avoid": day.suit,  // 忌讳
+					"avoid": day.avoid,  // 忌讳
 					"lunarDate": `${day.year}年${day.lMonth}月${day.lDate}`,  // 农历
 					"publicDate": `${day.year}年${showMonth}月${showDay}日`,  // 公历
 					"gzDate": `${day.gzYear}年 ${day.gzMonth}月 ${day.gzDate}日 属${day.animal}`,  // 天干地支
