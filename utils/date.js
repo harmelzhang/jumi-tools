@@ -39,8 +39,6 @@ export default {
 				that.dates = data
 				that.items = items
 				uni.setStorageSync(`${year}`, data)
-                
-                console.log(data)
 			})
 		} else {
 			dates.forEach(day => {
