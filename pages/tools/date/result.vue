@@ -2,6 +2,9 @@
 	<view class="header">
 		<text class="info">今年剩余{{type}}{{item}}的日子</text>
 	</view>
+    <view v-show="result.length == 0" class="no-data">
+        <text>暂无，请明年再计划吧！</text>
+    </view>
 	<view class="date" v-for="date in result">
 		<view class="item">
 			<view class="title">
@@ -134,6 +137,15 @@
 			font-weight: bold;
 		}
 	}
+    
+    .no-data {
+        margin-top: 36pt;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        font-size: 11pt;
+    }
+    
 	.date {
 		margin: 8pt;
 		padding: 8pt;
