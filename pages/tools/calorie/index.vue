@@ -32,7 +32,7 @@
 		let calories = uni.getStorageSync("calorie")
 		if(!calories) {
 			uni.request({
-				url: "https://mp-2f73ffe0-5d4f-4852-8a6b-86892c3cb1ee.cdn.bspapp.com/cloudstorage/a075d9db-bea9-4d78-ae37-402f479f425d.json",
+				url: "https://mp-891f5bfc-219e-4d25-9015-03afc44533e7.cdn.bspapp.com/jumi-tools/calorie/calories.json",
 				success(res) {
 					that.calories = res.data
 					uni.setStorageSync("calorie", res.data)

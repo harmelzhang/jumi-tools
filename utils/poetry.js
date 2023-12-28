@@ -2,20 +2,19 @@ export default {
 	queryData(that, func) {
 		let poetryTypeMap = {
 			"tangshi": {
-				"url": "https://mp-2f73ffe0-5d4f-4852-8a6b-86892c3cb1ee.cdn.bspapp.com/cloudstorage/8d73973b-4db0-448d-a3a8-0bcf11f70cdd.json"
+				"url": "https://mp-891f5bfc-219e-4d25-9015-03afc44533e7.cdn.bspapp.com/jumi-tools/poetry/tangshi.json"
 			},
 			"songci": {
-				"url": "https://mp-2f73ffe0-5d4f-4852-8a6b-86892c3cb1ee.cdn.bspapp.com/cloudstorage/0f8c7e63-ddd4-4c3d-9b7f-66e06379615d.json"
+				"url": "https://mp-891f5bfc-219e-4d25-9015-03afc44533e7.cdn.bspapp.com/jumi-tools/poetry/songci.json"
 			},
 			"shijing": {
-				"title": "诗经",
-				"url": "https://mp-2f73ffe0-5d4f-4852-8a6b-86892c3cb1ee.cdn.bspapp.com/cloudstorage/51c0866d-fa78-4826-884b-4a6d38cd3350.json"
+				"url": "https://mp-891f5bfc-219e-4d25-9015-03afc44533e7.cdn.bspapp.com/jumi-tools/poetry/shijing.json"
 			},
 			"chuci": {
-				"url": "https://mp-2f73ffe0-5d4f-4852-8a6b-86892c3cb1ee.cdn.bspapp.com/cloudstorage/660515eb-b994-47d1-b0ab-4102b2f829ce.json"
+				"url": "https://mp-891f5bfc-219e-4d25-9015-03afc44533e7.cdn.bspapp.com/jumi-tools/poetry/chuci.json"
 			},
 			"yuefu": {
-				"url": "https://mp-2f73ffe0-5d4f-4852-8a6b-86892c3cb1ee.cdn.bspapp.com/cloudstorage/6cd80263-672c-401d-968e-65fa5fb6d90c.json"
+				"url": "https://mp-891f5bfc-219e-4d25-9015-03afc44533e7.cdn.bspapp.com/jumi-tools/poetry/yuefu.json"
 			}
 		}
 		let poetrys = uni.getStorageSync(that.poetryType)

@@ -1,7 +1,7 @@
 <template>
 	<view class="info">
 		<text class="title">聚米工具箱</text>
-		<text class="version">v1.6.4</text>
+		<text class="version">v1.6.5</text>
 	</view>
 	
 	<view class="operate">
