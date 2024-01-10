@@ -17,6 +17,11 @@
 			<text class="name">{{tool.name}}</text>
 		</view>
 	</view>
+    <view class="ad">
+        <!-- #ifdef MP-WEIXIN -->
+        <ad unit-id="adunit-4153a7cd21398e73" />
+        <!-- #endif -->
+    </view>
 	<view class="record">
 		<view class="title">
 			<view class="title_prefix"></view>
@@ -240,6 +245,9 @@
 			}
 		}
 	}
+    .ad {
+        margin: 0pt 12pt;
+    }
 	.record {
 		margin: 4pt 8pt 8pt 4pt;
 		height: 100pt;

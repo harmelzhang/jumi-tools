@@ -1,7 +1,7 @@
 <template>
 	<view class="info">
 		<text class="title">聚米工具箱</text>
-		<text class="version">v1.6.5</text>
+		<text class="version">v1.6.5.1</text>
 	</view>
 	
 	<view class="operate">
@@ -28,6 +28,12 @@
 			</view>
 		</view>
 	</view>
+
+    <view class="ad">
+        <!-- #ifdef MP-WEIXIN -->
+        <ad unit-id="adunit-09e3b047f9292348" />
+        <!-- #endif -->
+    </view>
 </template>
 
 <script>
@@ -144,4 +150,8 @@
 			}
 		}
 	}
+    
+    .ad {
+        margin: 8pt;
+    }
 </style>
