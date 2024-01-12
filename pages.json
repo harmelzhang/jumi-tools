@@ -8,6 +8,18 @@
 			"path": "pages/index/search"
 		},
 		// 生活娱乐
+        {
+        	"path": "pages/tools/douyin/index",
+        	"style": {
+        		"navigationBarTitleText": "某音去水印"
+        	}
+        },
+        {
+        	"path": "pages/tools/douyin/result",
+        	"style": {
+        		"navigationBarTitleText": "某音去水印"
+        	}
+        },
 		{
 			"path": "pages/tools/qrcode/index",
 			"style": {

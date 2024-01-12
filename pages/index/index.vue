@@ -35,6 +35,22 @@
 			<text>生活娱乐</text>
 		</view>
 		<view class="content">
+            <view class="item" v-on:click="toPage('douyin')">
+            	<view class="info">
+            		<view class="title_area">
+            			<text class="title">某音去水印</text>
+            		</view>
+            		<view class="desc_area">
+            			<text class="desc">视频搬运有神器</text>
+            		</view>
+            	</view>
+            	<view class="icon">
+            		<image src="/static/icon/douyin.png"></image>
+            	</view>
+            	<view class="tip_area">
+            		<text class="tip">热</text>
+            	</view>
+            </view>
 			<view class="item" v-on:click="toPage('qrcode')">
 				<view class="info">
 					<view class="title_area">

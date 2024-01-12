@@ -1,0 +1,7 @@
+{
+  "name": "jumi-tools-douyin-parse",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

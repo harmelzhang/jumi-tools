@@ -56,6 +56,7 @@
 					{
 						"name": "生活娱乐",
 						"tools": [
+                            {"name": "某音去水印", "to": "douyin"},
 							{"name": "二维码生成", "to": "qrcode"},
 							{"name": "黄道吉日", "to": "date"},
 							// {"name": "古诗词取名", "to": "name"},
