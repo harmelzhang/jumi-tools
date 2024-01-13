@@ -34,6 +34,11 @@
 			</view>
 		</view>
 	</view>
+    <!-- #ifdef MP-WEIXIN -->
+    <view class="ad">
+        <ad unit-id="adunit-13b8cff3edb5ff72" />
+    </view>
+    <!-- #endif -->
 	<view class="warn">
 		<text class="info">虽然有一些研究表明血型与性格之间存在某种关系，但目前并没有足够证据证明这种关系的存在。一些人相信血型会影响一个人的性格和行为方式，例如，A型血的人被认为更焦虑，O型血的人则更自信。但这些说法缺乏可靠的科学证据。虽然血型与某些疾病的风险存在一定的相关性，但是关于血型和性格的研究仍然存在争议，不能被作为科学依据。</text>
 	</view>
@@ -48,7 +53,7 @@
 				otherTypeIndex: 0,
 				isShow: false,
 				possible: "",
-				impossible: ""
+				impossible: "",
 			}
 		},
 		methods: {
@@ -175,6 +180,11 @@
 			}
 		}
 	}
+    
+    .ad {
+        margin: 12pt;
+    }
+    
 	.warn {
 		display: flex;
 		flex-direction: column;

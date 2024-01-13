@@ -17,11 +17,11 @@
 			<text class="name">{{tool.name}}</text>
 		</view>
 	</view>
+    <!-- #ifdef MP-WEIXIN -->
     <view class="ad">
-        <!-- #ifdef MP-WEIXIN -->
         <ad unit-id="adunit-4153a7cd21398e73" />
-        <!-- #endif -->
     </view>
+    <!-- #endif -->
 	<view class="record">
 		<view class="title">
 			<view class="title_prefix"></view>
@@ -56,7 +56,7 @@
 					{
 						"name": "生活娱乐",
 						"tools": [
-                            {"name": "某音去水印", "to": "douyin"},
+                            {"name": "抖音去水印", "to": "douyin"},
 							{"name": "二维码生成", "to": "qrcode"},
 							{"name": "黄道吉日", "to": "date"},
 							// {"name": "古诗词取名", "to": "name"},

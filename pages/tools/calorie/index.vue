@@ -48,12 +48,32 @@
 			return {
 				showToTop: false,
 				inputValue: "",
-				calories: []
+				calories: [],
+                interstitialAd: null
 			}
 		},
-		onLoad() {
-			queryData(this)
-		},
+        onLoad() {
+            /* #ifdef MP-WEIXIN */
+            if(wx.createInterstitialAd) {
+                this.interstitialAd = wx.createInterstitialAd({
+                    adUnitId: 'adunit-cef15cd57aa02714'
+                })
+                this.interstitialAd.onLoad(() => {})
+                this.interstitialAd.onError((err) => {
+                    console.error('插屏广告加载失败', err)
+                })
+                this.interstitialAd.onClose(() => {})
+            }
+            /* #endif */
+            queryData(this)
+        },
+        onShow() {
+            if(this.interstitialAd) {
+                this.interstitialAd.show().catch((err) => {
+                    console.error('插屏广告显示失败', err)
+                })
+            }
+        },
 		onPageScroll(event) {
 			if(event.scrollTop > 200) {
 				this.showToTop = true

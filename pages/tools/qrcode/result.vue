@@ -12,7 +12,11 @@
 			<text class="item">仅做便捷交换数据使用，不得从事非法信息传播</text>
 		</view>
 	</view>
-	
+	<!-- #ifdef MP-WEIXIN -->
+	<view class="ad">
+	    <ad unit-id="adunit-0546ebe9185b405d" />
+	</view>
+	<!-- #endif -->
 </template>
 
 <script>
@@ -21,12 +25,32 @@
 	export default {
 		data() {
 			return {
-				inputValue: ""
+				inputValue: "",
+                interstitialAd: null
 			}
 		},
 		onLoad(event) {
+            /* #ifdef MP-WEIXIN */
+            if(wx.createInterstitialAd) {
+                this.interstitialAd = wx.createInterstitialAd({
+                    adUnitId: 'adunit-03babcf1fdceac46'
+                })
+                this.interstitialAd.onLoad(() => {})
+                this.interstitialAd.onError((err) => {
+                    console.error('插屏广告加载失败', err)
+                })
+                this.interstitialAd.onClose(() => {})
+            }
+            /* #endif */
 			this.inputValue = event.inputValue
 		},
+        onShow() {
+            if(this.interstitialAd) {
+                this.interstitialAd.show().catch((err) => {
+                    console.error('插屏广告显示失败', err)
+                })
+            }
+        },
 		onReady() {
 			uni.showLoading({
 				title: "生成中"
@@ -77,6 +101,9 @@
 </script>
 
 <style lang="scss">
+    page {
+        padding-bottom: 12pt;
+    }
 	.result_area {
 		margin-top: 20pt;
 		display: flex;
@@ -132,4 +159,7 @@
 			}
 		}
 	}
+    .ad {
+        margin: 8pt;
+    }
 </style>

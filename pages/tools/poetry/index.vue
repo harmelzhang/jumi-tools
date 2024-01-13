@@ -40,10 +40,24 @@
 				inputValue: "",
 				inputType: "title",
 				poetrys: [],
-				showToTop: false
+				showToTop: false,
+                interstitialAd: null
 			}
 		},
 		onLoad(event) {
+            /* #ifdef MP-WEIXIN */
+            if(wx.createInterstitialAd) {
+                this.interstitialAd = wx.createInterstitialAd({
+                    adUnitId: 'adunit-6bfb8fe5f65eb2ea'
+                })
+                this.interstitialAd.onLoad(() => {})
+                this.interstitialAd.onError((err) => {
+                    console.error('插屏广告加载失败', err)
+                })
+                this.interstitialAd.onClose(() => {})
+            }
+            /* #endif */  
+
 			uni.pageScrollTo({scrollTop: 0, duration: 0})
 
 			let poetryType = event.type
@@ -76,6 +90,13 @@
 			
 			poetryUtils.queryData(this)
 		},
+        onShow() {
+            if(this.interstitialAd) {
+                this.interstitialAd.show().catch((err) => {
+                    console.error('插屏广告显示失败', err)
+                })
+            }
+        },
 		onPageScroll(event) {
 			if(event.scrollTop > 200) {
 				this.showToTop = true

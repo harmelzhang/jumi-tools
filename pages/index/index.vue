@@ -38,7 +38,7 @@
             <view class="item" v-on:click="toPage('douyin')">
             	<view class="info">
             		<view class="title_area">
-            			<text class="title">某音去水印</text>
+            			<text class="title">抖音去水印</text>
             		</view>
             		<view class="desc_area">
             			<text class="desc">视频搬运有神器</text>

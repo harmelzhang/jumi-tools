@@ -34,12 +34,32 @@
 				showToTop: false,
 				items: [],
 				dates: [],
-				type: "适宜"
+				type: "适宜",
+                interstitialAd: null
 			}
 		},
-		onLoad() {
-			dateUtils.queryData(this)
-		},
+        onLoad() {
+            /* #ifdef MP-WEIXIN */
+            if(wx.createInterstitialAd) {
+                this.interstitialAd = wx.createInterstitialAd({
+                    adUnitId: 'adunit-ec3d89ca558559c8'
+                })
+                this.interstitialAd.onLoad(() => {})
+                this.interstitialAd.onError((err) => {
+                    console.error('插屏广告加载失败', err)
+                })
+                this.interstitialAd.onClose(() => {})
+            }
+            /* #endif */
+            dateUtils.queryData(this)
+        },
+        onShow() {
+            if(this.interstitialAd) {
+                this.interstitialAd.show().catch((err) => {
+                    console.error('插屏广告显示失败', err)
+                })
+            }
+        },
 		onPageScroll(event) {
 			if(event.scrollTop > 200) {
 				this.showToTop = true

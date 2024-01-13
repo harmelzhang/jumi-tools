@@ -1,13 +1,18 @@
 <template>
 	<view class="oper_area">
 		<view class="input_area">
-			<textarea class="input" maxlength="300" v-on:input="input" placeholder="请粘贴某音分享短链接"></textarea>
+			<textarea class="input" maxlength="300" v-on:input="input" placeholder="请粘贴抖音分享短链接"></textarea>
 		</view>
 		<view class="info">
 			<text class="tip">{{inputLength}}/300</text>
 		</view>
 		<button class="btn" v-on:click="generate">去水印</button>
 	</view>
+    <!-- #ifdef MP-WEIXIN -->
+    <view class="ad">
+        <ad unit-id="adunit-5620743f2cfd50e6" />
+    </view>
+    <!-- #endif -->
 </template>
 
 <script>
@@ -107,4 +112,8 @@
 			width: 160pt;
 		}
 	}
+
+    .ad {
+        margin: 12pt 8pt;
+    }
 </style>

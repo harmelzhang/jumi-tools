@@ -9,10 +9,16 @@
 			<button class="btn white_btn" v-on:click="goBack">返回修改</button>
 		</view>
 		<view class="info">
+            <text class="item">保存失败时，建议复制地址</text>
 			<text class="item">版权归原作者所有，引用请联系原作者</text>
 			<text class="item">仅做便捷交换数据使用，不得从事非法信息传播</text>
 		</view>
 	</view>
+    <!-- #ifdef MP-WEIXIN -->
+    <view class="ad">
+        <ad unit-id="adunit-396ec261305e02e8" />
+    </view>
+    <!-- #endif -->
 </template>
 
 <script>
@@ -23,10 +29,13 @@
 			return {
 				videoId: "",
                 url: "",
-                videoAd: null
+                showVideoAd: false,
+                videoAd: null,
+                interstitialAd: null
             }
 		},
 		onLoad(event) {
+            let that = this
 			this.videoId = event.videoId
             /* #ifdef MP-WEIXIN */
             if (wx.createRewardedVideoAd) {
@@ -37,98 +46,120 @@
                 this.videoAd.onError((err) => {
                     console.error('激励视频光告加载失败', err)
                 })
+                this.videoAd.onClose((res) => {
+                    if (res && res.isEnded) {
+                        that.showVideoAd = true
+                        uni.showToast({icon: "none", title: "获得奖励，解锁操作权限"})
+                    } else {
+                        uni.showToast({icon: "none", title: "提前关闭，未获得操作权限"})
+                    }
+                })
+            }
+            if(wx.createInterstitialAd) {
+                this.interstitialAd = wx.createInterstitialAd({
+                    adUnitId: 'adunit-c31c699b7501eb52'
+                })
+                this.interstitialAd.onLoad(() => {})
+                this.interstitialAd.onError((err) => {
+                    console.error('插屏广告加载失败', err)
+                })
+                this.interstitialAd.onClose(() => {})
             }
             /* #endif */
+            uniCloud.callFunction({
+                name: 'jumi-tools-douyin-parse',
+                data: {videoId: this.videoId},
+                success(res) {
+                    if(res.result.code != 0) {
+                        uni.showToast({icon: "none", title: res.result.message})
+                        return
+                    }
+                    that.url = res.result.url.replace("http://", "https://")
+                }
+            })
 		},
-		onReady() {
-            let that = this
-			uniCloud.callFunction({
-			    name: 'jumi-tools-douyin-parse',
-			    data: {videoId: this.videoId},
-			    success(res) {
-			        if(res.result.code != 0) {
-			            uni.showToast({icon: "none", title: res.result.message})
-			            return
-			        }
-			        that.url = res.result.url
-			    }
-			})
-		},
+        onShow() {
+            if(this.interstitialAd) {
+                this.interstitialAd.show().catch((err) => {
+                    console.error('插屏广告显示失败', err)
+                })
+            }
+        },
 		methods: {
 			saveVideo() {
 				let that = this
-				uni.showModal({
-					title: "提示",
-					content: "需要观看广告后才能保存，是否保存？",
-					confirmColor: "#F05656",
-			        confirmText: "观看",
-					success: function(res) {
-						if(res.confirm) {
-			                if(that.videoAd) {
-			                    that.videoAd.onClose((res) => {
-			                        if (res && res.isEnded) {
-			                            uni.showLoading({title: "下载中"})
-			                            uni.downloadFile({
-			                                url: that.url,
-			                                success(res) {
-			                                    if(res.statusCode == 200) {
-			                                        uni.hideLoading()
-			                                        uni.saveVideoToPhotosAlbum({
-			                                            filePath: res.tempFilePath,
-			                                            success: () => {
-			                                                uni.showToast({icon: "none", title: "下载成功"})
-			                                            }
-			                                        })
-			                                    }
-			                                }
-			                            })
-			                        } else {
-			                            uni.showToast({icon: "none", title: "提前关闭，未获得权限"})
-			                        }
-			                    })
-			                    that.videoAd.show().catch(() => {
-			                        // 失败重试
-			                        that.videoAd.load().then(() => videoAd.show()).catch(err => {
-			                            console.error('激励视频 广告显示失败', err)
-			                        })
-			                    })
-			                }
-						}
-					}
-				})
+                if(that.showVideoAd) {
+                    uni.showLoading({title: "下载中"})
+                    uni.downloadFile({
+                        url: that.url,
+                        success(res) {
+                            uni.hideLoading()
+                            if(res.statusCode == 200) {
+                                uni.saveVideoToPhotosAlbum({
+                                    filePath: res.tempFilePath,
+                                    success: () => {
+                                        uni.showToast({icon: "none", title: "保存成功"})
+                                    },
+                                    fail: (res) => {
+                                        uni.showModal({
+                                            title: "保存失败",
+                                            showCancel: false,
+                                            content: "未授权小程序访问相册，点击小程序顶部“···”按钮 -> 设置 -> 允许添加到相册"
+                                        })
+                                    }
+                                })
+                            }
+                        },
+                        fail(res) {
+                            uni.showToast({icon: "none", title: "下载失败"})
+                        }
+                    })
+                } else {
+                    uni.showModal({
+                        title: "提示",
+                        content: "您没有操作权限需要观看一段广告后操作",
+                        confirmColor: "#F05656",
+                        confirmText: "观看",
+                        success: function(res) {
+                            if(res.confirm) {
+                                that.videoAd.show().catch(() => {
+                                    // 失败重试
+                                    that.videoAd.load().then(() => videoAd.show()).catch(err => {
+                                        console.error('激励视频 广告显示失败', err)
+                                    })
+                                })
+                            }
+                        }
+                    })
+                }
 			},
 			copyUrl() {
 			    let that = this
-			    uni.showModal({
-			    	title: "提示",
-			    	content: "需要观看广告后才能保存，是否保存？",
-			    	confirmColor: "#F05656",
-			        confirmText: "观看",
-			    	success: function(res) {
-			    		if(res.confirm) {
-			                if(that.videoAd) {
-			                    that.videoAd.onClose((res) => {
-			                        if (res && res.isEnded) {
-			                            uni.setClipboardData({
-			                                data: that.url,
-			                                success: () => {
-			                                    uni.showToast({icon: "none", title: "复制成功"})
-			                                }
-			                            })
-			                        } else {
-			                            uni.showToast({icon: "none", title: "提前关闭，未获得权限"})
-			                        }
-			                    })
-			                    that.videoAd.show().catch(() => {
-			                        // 失败重试
-			                        that.videoAd.load().then(() => videoAd.show()).catch(err => {
-			                            console.error('激励视频 广告显示失败', err)
-			                        })
-			                    })
-			                }
-			    		}
-			    	}
-			    })
+                if(that.showVideoAd) {
+                    uni.setClipboardData({
+                        data: that.url,
+                        success: () => {
+                            uni.showToast({icon: "none", title: "复制成功"})
+                        }
+                    })
+                } else {
+                    uni.showModal({
+                        title: "提示",
+                        content: "您没有操作权限需要观看一段广告后操作",
+                        confirmColor: "#F05656",
+                        confirmText: "观看",
+                        success: function(res) {
+                            if(res.confirm) {
+                                that.videoAd.show().catch(() => {
+                                    // 失败重试
+                                    that.videoAd.load().then(() => videoAd.show()).catch(err => {
+                                        console.error('激励视频 广告显示失败', err)
+                                    })
+                                })
+                            }
+                        }
+                    })
+                }
 			},
 			goBack() {
 				uni.navigateBack({})
@@ -193,4 +224,8 @@
 			}
 		}
 	}
+    
+    .ad {
+        margin: 0pt 12pt;
+    }
 </style>

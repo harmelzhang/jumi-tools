@@ -2,6 +2,11 @@
 	<view class="header">
 		<text class="info">今年剩余{{type}}{{item}}的日子</text>
 	</view>
+    <!-- #ifdef MP-WEIXIN -->
+    <view class="ad">
+        <ad unit-id="adunit-094a70362c8cae2e" />
+    </view>
+    <!-- #endif -->
     <view v-show="result.length == 0" class="no-data">
         <text>暂无，请明年再计划吧！</text>
     </view>
@@ -137,6 +142,10 @@
 			font-weight: bold;
 		}
 	}
+    
+    .ad {
+        margin: 12pt;
+    }
     
     .no-data {
         margin-top: 36pt;

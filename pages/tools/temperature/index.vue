@@ -48,6 +48,11 @@
 	<view class="oper_area">
 		<button class="btn" v-on:click="clear">清 空</button>
 	</view>
+    <!-- #ifdef MP-WEIXIN -->
+    <view class="ad">
+        <ad unit-id="adunit-fcff5bd636238ec6" />
+    </view>
+    <!-- #endif -->
 </template>
 
 <script>
@@ -165,4 +170,8 @@
 			width: 120pt;
 		}
 	}
+    
+    .ad {
+        margin: 12pt;
+    }
 </style>

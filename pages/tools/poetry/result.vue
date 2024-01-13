@@ -10,6 +10,11 @@
 		<view class="oper_area">
 			<button class="btn" v-on:click="random">随机一首</button>
 		</view>
+        <!-- #ifdef MP-WEIXIN -->
+        <view class="ad">
+            <ad unit-id="adunit-28a7227fd09e3258" />
+        </view>
+        <!-- #endif -->
 	</view>
 </template>
 
@@ -131,4 +136,8 @@
 			}
 		}
 	}
+    
+    .ad {
+        margin: 12pt;
+    }
 </style>

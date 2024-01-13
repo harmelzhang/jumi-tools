@@ -8,6 +8,11 @@
 		</view>
 		<button class="btn" v-on:click="generate">生成二维码</button>
 	</view>
+    <!-- #ifdef MP-WEIXIN -->
+    <view class="ad">
+        <ad unit-id="adunit-93e2eb60359210b3" />
+    </view>
+    <!-- #endif -->
 </template>
 
 <script>
@@ -72,4 +77,8 @@
 			width: 160pt;
 		}
 	}
+    
+    .ad {
+        margin: 12pt 8pt;
+    }
 </style>
