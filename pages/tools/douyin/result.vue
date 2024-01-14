@@ -77,17 +77,15 @@
                     that.url = res.result.url.replace("http://", "https://")
                 }
             })
-		},
-        onShow() {
             if(this.interstitialAd) {
                 this.interstitialAd.show().catch((err) => {
                     console.error('插屏广告显示失败', err)
                 })
             }
-        },
+		},
 		methods: {
-			saveVideo() {
-				let that = this
+            toDisk() {
+                let that = this
                 if(that.showVideoAd) {
                     uni.showLoading({title: "下载中"})
                     uni.downloadFile({
@@ -101,11 +99,7 @@
                                         uni.showToast({icon: "none", title: "保存成功"})
                                     },
                                     fail: (res) => {
-                                        uni.showModal({
-                                            title: "保存失败",
-                                            showCancel: false,
-                                            content: "未授权小程序访问相册，点击小程序顶部“···”按钮 -> 设置 -> 允许添加到相册"
-                                        })
+                                        uni.showToast({icon: "none", title: "保存失败"})
                                     }
                                 })
                             }
@@ -132,6 +126,45 @@
                         }
                     })
                 }
+            },
+			saveVideo() {
+				let that = this
+                uni.getSetting({
+                    success: (res) => {
+                        if(!res.authSetting["scope.writePhotosAlbum"]) {
+                            uni.authorize({
+                                scope: "scope.writePhotosAlbum",
+                                success: () => {
+                                    that.toDisk()
+                                },
+                                fail: () => {
+                                    uni.showModal({
+                                        title: "提示",
+                                        content: "未授权访问本地存储，是否去设置授权？",
+                                        success: function(res) {
+                                        	if(res.confirm) {
+                                                uni.openSetting({
+                                                    success: (res) => {
+                                                        if(res.authSetting["scope.writePhotosAlbum"]) {
+                                                            that.toDisk()
+                                                        } else {
+                                                            uni.showToast({icon: "none", title: "未授权，暂无法使用该功能"})
+                                                        }
+                                                    },
+                                                    fail: (res) => {
+                                                        uni.showToast({icon: "none", title: "授权失败，暂无法使用该功能"})
+                                                    }
+                                                })
+                                            }
+                                        }
+                                    })
+                                }
+                            })
+                        } else {
+                            that.toDisk()
+                        }
+                    }
+                })
 			},
 			copyUrl() {
 			    let that = this

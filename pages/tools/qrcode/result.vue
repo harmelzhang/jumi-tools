@@ -43,14 +43,12 @@
             }
             /* #endif */
 			this.inputValue = event.inputValue
-		},
-        onShow() {
             if(this.interstitialAd) {
                 this.interstitialAd.show().catch((err) => {
                     console.error('插屏广告显示失败', err)
                 })
             }
-        },
+		},
 		onReady() {
 			uni.showLoading({
 				title: "生成中"
@@ -67,31 +65,69 @@
 			uni.hideLoading()
 		},
 		methods: {
+            toDisk() {
+                uni.showModal({
+                	title: "提示",
+                	content: "是否要保存到本地？",
+                	confirmColor: "#F05656",
+                	success: function(res) {
+                		if(res.confirm) {
+                			uni.canvasToTempFilePath({
+                				canvasId: "qrcode",
+                				success: function(res) {
+                					uni.saveImageToPhotosAlbum({
+                						filePath: res.tempFilePath,
+                						success: function(res) {
+                							uni.showToast({title: "保存成功"})
+                						},
+                						fail: function(res) {
+                							uni.showToast({icon: "none", title: "保存失败"})
+                						}
+                					})
+                				}
+                			})
+                		}
+                	}
+                })
+            },
 			saveImage() {
 				let that = this
-				uni.showModal({
-					title: "提示",
-					content: "是否要保存到本地？",
-					confirmColor: "#F05656",
-					success: function(res) {
-						if(res.confirm) {
-							uni.canvasToTempFilePath({
-								canvasId: "qrcode",
-								success: function(res) {
-									uni.saveImageToPhotosAlbum({
-										filePath: res.tempFilePath,
-										success: function(res) {
-											uni.showToast({title: "保存成功"})
-										},
-										fail: function(res) {
-											uni.showToast({icon: "none", title: "保存失败"})
-										}
-									})
-								}
-							})
-						}
-					}
-				})
+                uni.getSetting({
+                    success: (res) => {
+                        if(!res.authSetting["scope.writePhotosAlbum"]) {
+                            uni.authorize({
+                                scope: "scope.writePhotosAlbum",
+                                success: () => {
+                                    that.toDisk()
+                                },
+                                fail: () => {
+                                    uni.showModal({
+                                        title: "提示",
+                                        content: "未授权访问本地存储，是否去设置授权？",
+                                        success: function(res) {
+                                        	if(res.confirm) {
+                                                uni.openSetting({
+                                                    success: (res) => {
+                                                        if(res.authSetting["scope.writePhotosAlbum"]) {
+                                                            that.toDisk()
+                                                        } else {
+                                                            uni.showToast({icon: "none", title: "未授权，暂无法使用该功能"})
+                                                        }
+                                                    },
+                                                    fail: (res) => {
+                                                        uni.showToast({icon: "none", title: "授权失败，暂无法使用该功能"})
+                                                    }
+                                                })
+                                            }
+                                        }
+                                    })
+                                }
+                            })
+                        } else {
+                            that.toDisk()
+                        }
+                    }
+                })
 			},
 			goBack() {
 				uni.navigateBack({})
