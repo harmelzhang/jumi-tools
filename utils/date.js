@@ -1,5 +1,5 @@
 export default {
-	queryData(that) {
+	queryData(that, func) {
 		let year = new Date().getFullYear()
 
 		let dates = uni.getStorageSync(`${year}`)
@@ -39,6 +39,10 @@ export default {
 				that.dates = data
 				that.items = items
 				uni.setStorageSync(`${year}`, data)
+                
+                if(func) {
+                    func()
+                }
 			})
 		} else {
 			dates.forEach(day => {
@@ -59,6 +63,10 @@ export default {
 			})
 			that.dates = dates
 			that.items = items
+            
+            if(func) {
+                func()
+            }
 		}
 
 		function fetchData(res) {

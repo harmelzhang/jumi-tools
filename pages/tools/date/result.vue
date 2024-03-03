@@ -88,32 +88,34 @@
 			
 			uni.setNavigationBarTitle({title: `${this.type}日`})
 			
-			dateUtils.queryData(this)
-
-			let currentDate = new Date()
-			let month = currentDate.getMonth() + 1
-			if(month < 10) {
-				month = '0' + month
-			}
-			let day = currentDate.getDate()
-			if(day < 10) {
-				day = '0' + day
-			}
-			currentDate = currentDate.getFullYear() + '-' + month + '-' + day
-
-			this.dates.forEach(date => {
-				if(date.date >= currentDate) {
-					if(this.type == '适宜') {
-						if(date.suit.indexOf(this.item) != -1) {
-							this.result.push(date)
-						}
-					} else if(this.type == '禁忌') {
-						if(date.avoid.indexOf(this.item) != -1) {
-							this.result.push(date)
-						}
-					}
-				}
-			})
+			dateUtils.queryData(this, function(that) {
+                return function() {
+                    let currentDate = new Date()
+                    let month = currentDate.getMonth() + 1
+                    if(month < 10) {
+                    	month = '0' + month
+                    }
+                    let day = currentDate.getDate()
+                    if(day < 10) {
+                    	day = '0' + day
+                    }
+                    currentDate = currentDate.getFullYear() + '-' + month + '-' + day
+                    
+                    that.dates.forEach(date => {
+                    	if(date.date >= currentDate) {
+                    		if(that.type == '适宜') {
+                    			if(date.suit.indexOf(that.item) != -1) {
+                    				that.result.push(date)
+                    			}
+                    		} else if(that.type == '禁忌') {
+                    			if(date.avoid.indexOf(that.item) != -1) {
+                    				that.result.push(date)
+                    			}
+                    		}
+                    	}
+                    })
+                }
+            }(this))
 		},
 		onPageScroll(event) {
 			if(event.scrollTop > 200) {
