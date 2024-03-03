@@ -58,7 +58,7 @@
 						"tools": [
                             {"name": "抖音去水印", "to": "douyin"},
 							{"name": "二维码生成", "to": "qrcode"},
-							{"name": "黄道吉日", "to": "date"},
+							{"name": "吉日查询", "to": "date"},
 							// {"name": "古诗词取名", "to": "name"},
 							// {"name": "今天吃什么", "to": "eat"},
 							{"name": "卡路里查询", "to": "calorie"},

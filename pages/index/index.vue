@@ -10,22 +10,22 @@
 		<view class="row">
 			<view class="item item2">
 				<!-- 个人 -->
-				<image class="icon icon-top-left-radius" mode="widthFix" src="/static/advertise/meituan.png" v-on:click="toAdvertise('wxde8ac0a21135c07d', 'index/pages/h5/h5?noshare=1&f_openId=0&weburl=https%3A%2F%2Fclick.meituan.com%2Ft%3Ft%3D1%26c%3D2%26p%3D8nsxar5zu3UC&f_userId=0&f_token=0')"></image>
+				<image class="icon icon-top-left-radius" mode="widthFix" src="/static/advertise/meituan.png" v-on:click="toApp('wxde8ac0a21135c07d', 'index/pages/h5/h5?noshare=1&f_openId=0&weburl=https%3A%2F%2Fclick.meituan.com%2Ft%3Ft%3D1%26c%3D2%26p%3D8nsxar5zu3UC&f_userId=0&f_token=0')"></image>
 			</view>
 			<view class="item item2">
 				<!-- 个人 -->
-				<image class="icon icon-top-right-radius" mode="widthFix" src="/static/advertise/ele.png" v-on:click="toAdvertise('wxece3a9a4c82f58c9', 'commercialize/pages/taoke-guide/index?scene=663730b3100a40ffa1c9583376870a80')"></image>
+				<image class="icon icon-top-right-radius" mode="widthFix" src="/static/advertise/ele.png" v-on:click="toApp('wxece3a9a4c82f58c9', 'commercialize/pages/taoke-guide/index?scene=663730b3100a40ffa1c9583376870a80')"></image>
 			</view>
 		</view>
 		<view class="row">
 			<view class="item item3">
-				<image class="icon icon-bottom-left-radius" mode="widthFix" src="/static/advertise/huaxiaozhu.png" v-on:click="toAdvertise('wxd98a20e429ce834b', '/pages/chitu/index?scene=0qlzdP5&source_id=109743jutuike123456')"></image>
+				<image class="icon icon-bottom-left-radius" mode="widthFix" src="/static/advertise/huaxiaozhu.png" v-on:click="toApp('wxd98a20e429ce834b', '/pages/chitu/index?scene=0qlzdP5&source_id=109743jutuike123456')"></image>
 			</view>
 			<view class="item item3">
-				<image class="icon" mode="widthFix" src="/static/advertise/dididache.png" v-on:click="toAdvertise('wxaf35009675aa0b2a', '/pages/index/index?scene=Yz0AdQx&source_id=109743jutuike123456')"></image>
+				<image class="icon" mode="widthFix" src="/static/advertise/dididache.png" v-on:click="toApp('wxaf35009675aa0b2a', '/pages/index/index?scene=Yz0AdQx&source_id=109743jutuike123456')"></image>
 			</view>
 			<view class="item item3">
-				<image class="icon icon-bottom-right-radius" mode="widthFix" src="/static/advertise/didijiayou.png" v-on:click="toAdvertise('wxaf35009675aa0b2a', '/pages/index/index?scene=Knxk83A&source_id=109743jutuike123456')"></image>
+				<image class="icon icon-bottom-right-radius" mode="widthFix" src="/static/advertise/didijiayou.png" v-on:click="toApp('wxaf35009675aa0b2a', '/pages/index/index?scene=Knxk83A&source_id=109743jutuike123456')"></image>
 			</view>
 		</view>
 	</view>
@@ -51,6 +51,22 @@
             		<text class="tip">热</text>
             	</view>
             </view>
+            <view class="item" v-on:click="toApp('wx080898d8ab298091', 'pages/almanac/almanac')">
+            	<view class="info">
+            		<view class="title_area">
+            			<text class="title">每日运势</text>
+            		</view>
+            		<view class="desc_area">
+            			<text class="desc">今天适合做什么呢</text>
+            		</view>
+            	</view>
+            	<view class="icon">
+            		<image src="/static/icon/luck.png"></image>
+            	</view>
+            	<view class="tip_area">
+            		<text class="tip">热</text>
+            	</view>
+            </view>
 			<view class="item" v-on:click="toPage('qrcode')">
 				<view class="info">
 					<view class="title_area">
@@ -70,7 +86,7 @@
 			<view class="item" v-on:click="toPage('date')">
 				<view class="info">
 					<view class="title_area">
-						<text class="title">黄道吉日</text>
+						<text class="title">吉日查询</text>
 					</view>
 					<view class="desc_area">
 						<text class="desc">那天我要做点什么</text>
@@ -366,7 +382,7 @@
 					url: "/pages/index/search"
 				})
 			},
-			toAdvertise(appId, path) {
+			toApp(appId, path) {
 				uni.navigateToMiniProgram({
 					appId: appId,
 					path: path,
