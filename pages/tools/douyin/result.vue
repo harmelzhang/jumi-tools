@@ -66,15 +66,21 @@
                 this.interstitialAd.onClose(() => {})
             }
             /* #endif */
+            uni.showLoading({title: "解析中"})
             uniCloud.callFunction({
                 name: 'jumi-tools-douyin-parse',
                 data: {videoId: this.videoId},
                 success(res) {
+                    uni.hideLoading()
                     if(res.result.code != 0) {
                         uni.showToast({icon: "none", title: res.result.message})
                         return
                     }
                     that.url = res.result.url.replace("http://", "https://")
+                },
+                fail() {
+                    uni.hideLoading()
+                    uni.showToast({icon: "none", title: "抖音更新了规则，请联系开发者处理"})
                 }
             })
             if(this.interstitialAd) {
